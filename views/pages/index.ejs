@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+
+<body>
+    <form method="post" id="form" action="https://file-post-app-backend.herokuapp.com/inquire">
+        <p>お名前</p>
+        <p id="error_name" style="display:none"></p>
+        <input type="text" id="name" name="name">
+        <p>メールアドレス</p>
+        <p id="error_address" style="display:none"></p>
+        <input type="text" id="address" name="address">
+        <p>ファイル</p>
+        <p id="error_file" style="display:none"></p>
+        <input type="file" id="file" name="file">
+        <br><button id="submit" type="submit">submit</button>
+    </form>
+
+    <script>
+        // submit時にフォーム送信
+        var form = document.getElementById("form");
+        form.addEventListener('submit', function (e) {
+            //submit直後はエラー文を全て消す（バリデーション前）
+            document.getElementById("error_name").style.display = "none";
+            document.getElementById("error_address").style.display = "none";
+            document.getElementById("error_file").style.display = "none";
+            //preventdefaultだけだと止まらない。stopPropagationの意味は？
+            e.stopPropagation();
+            e.preventDefault();
+            //let、constじゃだめなの？
+            //ここから4行セットで
+            //            data = {"name" : form.name「フォームのname属性」.value
+            //      "adress" : 
+            //    }とキーとバリューになる。インスタンス化なしで変数にappendしていってオブジェクトつくること可能？
+            var data = new FormData();
+            data.append("name", form.name.value);
+            data.append("address", form.address.value);
+            data.append("file", form.file.files[0]);
+            axios.post(form.action, data)
+                .then(function (response) {
+                    if (!response.statusText === "OK") {
+                        alert("ファイルアップロードに失敗しました")
+                    }
+                    // APIから200が返った場合
+                  location.href = "/complete";
+                })
+                .catch(function (error) {
+                    console.error(error.response.status)
+                    if (error.response.status === 500 || error.response.status === 503 || error.response.status === 0 || !error.response.statusText === "OK") {
+                        alert("ファイルアップロードに失敗しました")
+                        console.error(error.response.status)
+                        return;
+                    }
+                    // 200以外が返った場合
+                    console.error(error.response.status);
+                    var keys = Object.keys(error.response.data.message);
+                    for (i = 0; i < keys.length; i++) {
+                        console.error(keys[i], error.response.data.message[keys[i]]);
+                        var text = document.getElementById("error_" + keys[i]);
+                        //innerTextはノードの子要素。ここではinputの中の入力されたテキスト
+                        text.innerText = error.response.data.message[keys[i]];
+                        text.style.display = "block";
+                    }
+                });
+            return;
+        });
+    </script>
+</body>
+
+</html>
