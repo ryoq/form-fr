@@ -7,21 +7,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
 </head>
 
 <body>
-    <form method="post" id="form" action="https://file-post-app-backend.herokuapp.com/inquire">
-        <p>お名前</p>
-        <p id="error_name" style="display:none"></p>
-        <input type="text" id="name" name="name">
-        <p>メールアドレス</p>
-        <p id="error_address" style="display:none"></p>
-        <input type="text" id="address" name="address">
-        <p>ファイル</p>
-        <p id="error_file" style="display:none"></p>
-        <input type="file" id="file" name="file">
-        <br><button id="submit" type="submit">submit</button>
-    </form>
+    <div class="box-wrapper">
+        <h1>株式会社XXX説明会</h1>
+        <h2>課題提出ポスト</h2>
+        <div class="form-wrapper">
+            <form method="post" id="form" action="https://file-bk.herokuapp.com/inquire">
+                <p class="form-item-name">課題タイトル</p>
+                <p id="error_name" style="display:none"></p>
+                <input class="text-form" type="text" id="name" name="name">
+                <p class="form-item-name">メールアドレス</p>
+                <p id="error_address" style="display:none"></p>
+                <input class="text-form" type="text" id="address" name="address">
+                <p class="form-item-name">ファイル</p>
+                <p id="error_file" style="display:none"></p>
+                <input class="file-form" type="file" id="file" name="file">
+                <br><button id="submit" type="submit">提出する</button>
+            </form>
+        </div>
+    </div>
 
     <script>
         // submit時にフォーム送信
@@ -49,7 +56,7 @@
                         alert("ファイルアップロードに失敗しました")
                     }
                     // APIから200が返った場合
-                  location.href = "/complete";
+                    location.href = "/complete";
                 })
                 .catch(function (error) {
                     console.error(error.response.status)

@@ -1,0 +1,80 @@
+html {
+    height: 100%;
+    margin: 0px;
+}
+
+body {
+    background-color: gray;
+    margin: 0px;
+    height: 100%;
+}
+
+div {
+    width: 70%;
+    height: 100%;
+    margin: 0 auto;
+    background-color: white;
+    padding-left: 20px;
+}
+
+div.form-wrapper {
+    padding-left: 20px;
+    border: 2px solid;
+    border-radius: 10px;
+    padding-bottom: 0px;
+    height: 500px;
+    font-size: 20px;
+}
+
+h1 {
+    margin-top: 0px;
+    padding-top: 50px;
+    text-align: center;
+}
+
+h2 {
+    text-align: center;
+}
+
+p.form-item-name {
+    margin-bottom: 0px;
+    margin-top: 40px;
+    font-weight: bold;
+}
+
+#error_name {
+    font-size: 12px;
+    color: red;
+    margin: 0px;
+}
+
+#error_address {
+    font-size: 12px;
+    color: red;
+    margin: 0px;
+}
+
+#error_file {
+    font-size: 12px;
+    color: red;
+    margin: 0px;
+}
+
+input.text-form {
+    width: 200px;
+    height: 20px;
+    border-radius: 7px;
+    border-color: gray;
+}
+
+input.file-form {
+    margin-bottom: 100px;
+}
+
+button {
+    margin-top: 200px;
+    display: block;
+    margin: auto;
+    height: 30px;
+    width: 100px;
+}
